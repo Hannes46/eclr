@@ -1,0 +1,563 @@
+@charset "UTF-8";
+  /* "Version 0.19&#10;2026-06-30T18:00&#10;"
+Änderung 2026-06-30 hjt1946: Mit Sublime neu eingerückt, Version angepasst.
+Mindestbreite verringert auf geteilte Tabbreite.
+*/
+/* root */
+:root {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  --eclr-width: 58rem; /* media queries: for half Tabs */
+  /*--html-bg-size: calc(var(--html-width) - var(--eclr-width));*/
+}
+
+html *, ::before, ::after {
+  box-sizing: inherit;
+}
+
+/* no selection */
+/*header, button, label*/
+html, summary, .settings * {
+  -webkit-user-select: none;
+  user-select: none;
+}
+/* selection allowed */
+[data-t=info], [data-messages] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+
+/* Half Tab */
+@media screen and (min-width: 40em) {
+#eclrForm {
+  max-width: var(--eclr-width);
+  margin-inline: auto;
+}
+/* 800 px */
+@media screen and (min-width: 50em) {
+  #eclrForm {
+    max-width: 80em;
+  }
+}
+
+html {
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 2'%3E%3Cdesc%3Equadrate_small_2x2_by_hjt1946.%3C/desc%3E%3Cpath d='m1,1h-1v-1h1v2h1v-1z' fill='black'/%3E%3C/svg%3E");
+  background-position: left top;
+  font-family: system-ui, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow: auto;
+}
+
+aside.svg-symbols {
+  position: fixed;
+  max-width: 0;
+  max-height: 0;
+  z-index: -1;
+}
+
+body [data-messages] {
+  display: flex;
+  flex-flow: column wrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: auto;
+  background-color: wheat;
+}
+body [data-messages] p {
+  display: inline-flex;
+}
+/* Message output over header span */
+body [data-messages="false"] {
+  visibility: hidden;
+}
+body [data-messages="true"] {
+  cursor: help;
+  visibility: visible;
+  z-index: 9999;
+}
+body [data-messages] b {
+  cursor: text;
+}
+
+body [data-messages] i {
+  cursor: text;
+  font-style: normal;
+}
+
+/* #eclrForm */
+#eclrForm {
+  height: auto;
+  margin: 0 auto;
+  box-shadow: 0 0 0.5em 0.1em currentcolor;
+  background: burlywood
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 90 90'%3E%3Cdefs%3E%3Cstyle%3Epattern%7Bstroke:moccasin%3Bstroke-linecap:square%3Bstroke-opacity:0.5%3B%7D%3C/style%3E%3Cpattern id='pr' width='30' height='30' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0,5L5,0M0,10L10,0M0,15L15,0M0,20L20,0M0,25L25,0M0,30L30,0M5,30L30,5M10,30L30,10M15,30L30,15M20,30L30,20M25,30L30,25'/%3E%3C/pattern%3E%3Cpattern id='phv' width='30' height='30' patternUnits='userSpaceOnUse'%3E%3Cpath d='M0,0H30,0M0,5H30,5M0,10H30,10M0,15H30,15M0,20H30,20M0,25H30,25M0,30H30,30M0,0V30M5,0V30M10,0V30M15,0V30M20,0V30M25,0V30M30,0V30'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23pr)' x='0' y='0' width='30' height='30' transform='rotate(90,15,15)'/%3E%3Crect fill='url(%23phv)' x='30' y='0' width='30' height='30' transform='rotate(90,45,15)'/%3E%3Crect fill='url(%23phv)' x='0' y='30' width='30' height='30'/%3E%3Crect fill='url(%23pr)' x='30' y='30' width='30' height='30'/%3E%3Crect fill='url(%23pr)' x='30' y='30' width='30' height='30' transform='rotate(90,45,45)'/%3E%3Crect fill='url(%23phv)' x='60' y='30' width='30' height='30'/%3E%3Crect fill='url(%23pr)' x='60' y='0' width='30' height='30'/%3E%3Crect fill='url(%23phv)' x='30' y='60' width='30' height='30' transform='rotate(90,45,75)'/%3E%3Crect fill='url(%23pr)' x='0' y='60' width='30' height='30'/%3E%3Crect fill='url(%23pr)' x='60' y='60' width='30' height='30' transform='rotate(90,75,75)'/%3E%3C/svg%3E") center top/90px 90px repeat;
+}
+
+a:link {
+  line-height: 1.3em;
+  text-decoration-color: gold;
+  text-decoration-style: wavy;
+  text-decoration-line: overline underline;
+}
+
+[href^="http"] {
+  color: deeppink;
+}
+
+[href^="#"] {
+ color: deepskyblue;
+}
+
+a:visited {
+  background-color: hsla(50.59,100%,50%,0.1);
+}
+a[href^="http"]:visited {
+  color: revert;
+  /*color: orchid;*/ /* plum; salmon; tomato; coral; orchid; palevioletred*/
+}
+
+a:focus {
+  background-color: hsla(50.59,100%,50%,0.1);
+  text-decoration: underline;
+}
+
+a:focus-within {
+  background-color: hsla(50.59,100%,50%,0.1);
+  text-decoration: underline;
+}
+
+a:hover {
+  background-color: hsla(50.59,100%,50%,0.1);
+  text-decoration: underline;
+}
+
+a:active {
+  background-color: hsla(50.59,100%,50%,0.1);
+  text-decoration: underline;
+}
+
+/* h1 logo1 logo2 logo3 */
+h1 {
+  color: hsl(30,100%,13%);
+  display: table;
+  font-family: "Cooper","Comic Sans MS", "Comic Neue", "Chalkboard SE", fantasy;
+  font-style: italic;
+  margin: 0 auto;
+  table-layout: fixed;
+}
+h1 span{
+  display: table-cell;
+  min-width: 8rem;
+  padding: 0 1em;
+}
+#svg1, .h1, #svg2 {
+  vertical-align: middle;
+}
+
+.css-filter-2 {
+  display: inline-block;
+  filter: drop-shadow(0 0.25em 1em hsl(30,100%,2%));
+  width: 120px;
+  height: 42px;
+}
+
+/* CC Logo 3, Farben überschreiben XML-Attribute. */
+p[data-t=Lizenz] {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+}
+p[data-t=Lizenz] > a {
+  line-height: 3em;
+  text-align: center;
+}
+.css-filter-2g {
+  display: inline-block;
+  width: 120px;
+  height: 42px;
+  stroke-width: 0;
+}
+#svg1 {
+  overflow: visible;
+  will-change: filter;
+  cursor: zoom-in;
+}
+
+#svg2 {
+  transition: all 2s 1.5s linear;
+  z-index: auto;
+  will-change: transform;
+  cursor: zoom-in;
+}
+
+.logo1 {
+  overflow: visible;
+  background-image: radial-gradient(hsla(30,100%,13%,0.7) 0%, hsla(30,100%,13%,0.6) 35%, hsla(30,100%,13%,0.4) 50%, hsla(30,100%,13%,0.3) 55%, hsla(30,100%,13%,0.2) 80%, hsla(30,100%,13%,0.1) 90%, hsla(30,100%,13%,0));
+  background-position: center;
+  background-size: 110% 110%;
+  background-repeat: no-repeat;
+  transition: all 2s 1.5s linear;
+  border-radius: 50%;
+  z-index: auto;
+  will-change: transform;
+}
+
+.logo2 {
+  overflow: visible;
+  border-radius: 50%;
+  filter: drop-shadow(0 0.25em 1em hsl(30,100%,13%));
+}
+
+.use-logo2bg, .use-logo3bg {
+  fill: gray;
+}
+.use-logo2w, .use-logo3w {
+  fill: white;
+}
+.use-logo2fg, .use-logo3fg {
+  fill: black;
+}
+
+@media screen {
+  [data-t=Lizenz] > a:hover > .css-filter-2g {
+    outline: thick solid gold;
+  }
+  [data-t=Lizenz] > a:focus > .css-filter-2g {
+    outline: thick solid gold;
+  }
+  [data-t=Lizenz] > a:hover > .css-filter-2g {
+    outline: none;
+    filter: drop-shadow(2px 4px 6px gold);
+  }
+  [data-t=Lizenz] > a:focus > .css-filter-2g {
+    outline: none;
+    filter: drop-shadow(2px 4px 6px gold);
+  }
+  [data-t=Lizenz] > a:focus-within > .css-filter-2g {
+    filter: drop-shadow(2px 4px 6px gold);
+  }
+  .use-logo2bg {
+    fill: url("#lg-bg");
+  }
+  .use-logo2fg {
+    fill: url("#lg-fg");
+  }
+  .logo1:hover {
+    transform: translate(150px,90px) scale(5);
+    z-index: 1;
+    cursor: zoom-out;
+  }
+  #svg2:hover {
+    transform: translate(-130px,90px) scale(5);
+    filter: none;
+    z-index: 1;
+  }
+  #svg1:hover {
+    filter: drop-shadow(0 0 20px black);
+  }
+}
+
+/* slider, input type=range */
+input[type=range] {
+  font-family: inherit;
+}
+#errorValue, #alphaValue, #errorMsg {
+  text-align: left;
+}
+
+.slider-box {
+  border: 5px inset antiquewhite;
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+}
+
+.slider-box label {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+
+.sliderL>span {
+  display: table-cell;
+  text-align: center;
+}
+
+.sliderL>span:first-of-type {
+  background-color: hsla(0,0%,100%,.6);
+  border-radius: .25em;
+  line-height: 90%;
+  vertical-align: middle;
+  width: 1em;
+}
+
+/* Range input color slider */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  display: inline-block;
+  height: 1.6rem;
+  margin: 0.25em 0;
+  width: 100%;
+}
+
+input[type=range]:focus {outline: none;}
+
+/* Chrome Schieber ok */
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: transparent;
+  border: 2px solid white;
+  border-radius: 0.25em;
+  height: 1.6em;
+  width: 0.25em;
+  box-shadow: 0 0 .25em 1px black;
+  box-sizing: content-box;
+  margin-top: -2px;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  height: 1.6em;
+}
+
+/* ****** Firefox Schieber ok ****** */
+input[type=range]::-moz-range-thumb {
+  border-radius: 0.25em;
+  background-color: rgba(0,0,0,.3); /* def.: white */
+  border: 2px solid white;
+  height: 1.6em;
+  width: 0.25em;
+  box-shadow: 0 0 .25em 1px black;
+  box-sizing: content-box;
+}
+
+input[type=range]::-moz-range-track {
+  height: 1.6em;
+}
+/* ***!!! Bis hier bereinigt und korrigiert hjt1946 2026-06-30  !!!*** */
+/*  Der Hintergrund gehört zu input, der Slider-Hintergrund zu input::*-track. FF ok, Chrome BUG!
+*/
+#rgb-r {background-image: linear-gradient(90deg, black, red);}
+#rgb-g {background-image: linear-gradient(90deg, black, lime);}
+#rgb-b {background-image: linear-gradient(90deg, black, blue);}
+
+/* alpha-a, #alphaValue */
+#alphaValue::before {
+  content: 'Opacity (alpha channel): ';
+}
+
+/* Der karierte Hintergrund gehört zu input, der Slider-Hintergrund zu input::*-track.
+*/
+label[for="alpha-a"] > span:last-of-type {
+  display: table-cell;
+}
+label[for="alpha-a"] > span:last-of-type >b {
+  display: inline-block;
+  max-height: 1.6em;
+  width: 100%;
+  vertical-align: middle;
+  /*margin-bottom: 0.5em;*/
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 2 2'%3E%3Cdesc%3Equadrate small 2x2 by hjt1946.%3C/desc%3E%3Cpath d='m1 1h-1v-1h1v2h1v-1z' fill='silver'/%3E%3C/svg%3E") 0 0/.75em .75em round;
+}
+
+#alpha-a {
+  /*background-color: white;*/
+}
+
+#alpha-a::-webkit-slider-runnable-track,
+#alpha-a::-moz-range-track {
+  /*border: thin solid red;*/
+  border: none;
+}
+
+#alpha-a::-webkit-slider-runnable-track {
+  /*-webkit-appearance: sliderthumb-horizontal;*/
+  height: 1.6rem;
+  /*width: 100%;*/
+}
+
+#alpha-a::-moz-range-track {
+  height: 1.6rem;
+  /*width: 100%;*/
+}
+
+/* hwb */
+/* Der HWB-Hintergrund muß geschichtet werden, zuerst die H-Farbe, darüber monochrom (wenn W+B≥100% sind, W=100+B=0=white und W=0+B=100=black) oder Gradient mit Opacity von 0 bis 1 für W und B.
+Weiterhin wird noch ein Schalter benötigt, um Slider bei B+W=100% zu kappen oder bis zu 200% anzuzeigen. Ein 2. Schalter sollte monochrome Werte fest einschalten.
+
+Die Gradienten sind nur der 1. Entwurf.
+*/
+#hwb-w {background: linear-gradient(90deg, hsla(0,0%,100%,0), hsla(0,0%,100%,1));}
+#hwb-b {background: linear-gradient(90deg, hsla(0,0%,0%,0), hsla(0,0%,0%,1));}
+
+/* hsl */
+#hsl-h {
+  background:
+  linear-gradient(90deg,
+   #f00 0%,
+   #ff0 calc((100/6)*1%),
+   #0f0 calc((100/6)*2%),
+   #0ff calc((100/6)*3%),
+   #00f calc((100/6)*4%),
+   #f0f calc((100/6)*5%),
+   #f00 100%
+ );
+}
+
+#hsl-l{background: linear-gradient(90deg, black, white);}
+
+/* JS used for linear-gradient #hsl-s and #alpha. */
+
+/* settings, Einstellungen */
+
+section[data-t=setting-section] {
+  width: 100%;
+}
+
+.settings {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: stretch;
+  align-items: center;
+  gap: 0.25em 0.5em;
+  background-color: wheat; /*floralwhite;*/
+}
+
+.settings input {
+  flex: 0 0 3em;
+  display: block;
+}
+
+.settings label {
+  flex: 1 0 92%;
+}
+
+#outputPrecision, #alphaPrecision, #rgbPrecision,
+#handleError, #alphaOne, #rgbOutput, #hexAlpha {
+  max-width: 3em;
+}
+
+/* Input-Elemente, #parser, setting-section */
+
+input:not([type=file]):not([type=range]), code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, Monaco, monospace, monospace;
+  font-weight: inherit;
+}
+code {
+  font-size: 1rem;
+}
+
+input[type=number] {
+  text-align: right;
+}
+
+/* V0.6.15 neu */
+#parser > div {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 2px;
+  /*align-content: center;*/ /* ? */
+  /*justify-content: space-between;*/
+  align-items: baseline;
+  border: 0;
+  padding: 0;
+}
+
+#parser input {
+  flex: 1 1 auto;
+  box-shadow: 0 0 1px 0 red;
+}
+
+#parser input[type=text][required]:valid {
+  /*color: lime;*/ /* Hier muss dann lightmode | darkmode Auswertung hin mit Aufhellung wegen Farbkontrast, Mittelwert lime hsl(120 100% 50%) unlesbar. */
+  box-shadow: 0 0 1px 0 green inset;
+  /*filter: invert(1);*/ /* funktionell lesbar */
+  /*filter: hue-rotate(180deg);*/
+}
+#parser input[type=text][required]:invalid {
+  box-shadow: 0 0 1px 0 red inset;
+}
+
+/*# parser Input-Elemente, Label .inp */
+#parser label.inp {
+  flex: 0 0 3.5em;
+  display: inline-block;
+  /*background-color: hsla(0,0%,100%,.2);*/
+  /*box-shadow: 0 0 1px 0 black;*/
+  /*min-width: 3em;*/
+  text-align: center;
+}
+
+#cssInput {
+}
+/* Zwischenergebnis in r%g%b%/a% */
+#rgbPOutput {
+}
+#parser #hslInput {
+  min-width: 16.1875em;
+}
+#parser #hwbInput {
+  min-width: 16.1875em;
+}
+#parser #hsvInput {
+  min-width: 16.1875em;
+}
+#parser #rgbInput {
+  min-width: 16.1875em;
+}
+#parser #hexInput {
+  max-width: 7em;
+}
+#parser #nameInput {
+  max-width: 14em;
+}
+#parser #nameSelect {
+  flex: 0 0 auto;
+  font-family: inherit;
+}
+
+summary {
+  background-color: burlywood; /*ButtonFace;*/s
+  color: ButtonText;
+  cursor: pointer;
+  box-shadow: 0 0 1px 0 ButtonText;
+  margin: 0.1em auto;
+  margin-inline-end: 0.1em !important;
+}
+
+summary::before {
+  color: ButtonText;
+  display: inline-block;
+  text-align: center;
+  width: 1.25rem;
+  /*margin-left: 0.25em;*/
+}
+
+/* Textausgabe, details */
+.text {
+  max-height: 21em;
+  overflow: auto;
+  background-color: wheat;
+}
+
+.text h3 {
+  text-align: center;
+  margin: 0 0 .5em;
+}
+
+.text p {
+  margin: .3em 0;
+  padding: 0 1em;
+}

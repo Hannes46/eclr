@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="author" content="Hans-Jürgen Trolldenier (hjt1946)" />
+  <meta name="date" content="2025-01-03T15:00" />
+  <meta name="last changed" content="2026-06-30T21:00" />
+  <meta name="version" content="0.19" />
+
+  <link rel="stylesheet" media="all" href="exoticcolor-library-test-v0.19.css">
+
+  <style name="eclr-last-style">
+    body {
+      background-color: rgba(82,65,0,0.9);
+    }
+  </style>
+
+  <script src="exoticcolor-library-v0.19.js" defer></script>
+  <script src="exoticcolor-library-test-init-v0.19.js" defer></script>
+  <script src="exoticcolor-library-init-v0.19.js" defer></script>
+
+  <title>ExoticColor Library Test V0.19</title>
+</head>
+
+<body>
+
+  <aside class="svg-symbols" data-desc="STYLE-Abschnitte mit zugeordneten Selektoren werden sofort global vom CSS übernommen. FF zeigt diese im Style-Bereich gesondert an, andere nicht.">
+    <svg width="0" height="0" data-t="ccbysa-symbol">
+      <desc>
+       bg-lg: set color from css 'fill:color-you-wish' - def. rgb(170,178,171).
+       bg-white2: set with css #bg-white - def. white.
+       fg-lg: set color from css 'color:color-you-wish' - def. black.
+       Unter Firefox 71.0 funktioniert dies nur, wenn die SVG-Symbole keine Präsentations-Attribute erhalten und die voreingestellten Werte benutzen.
+      </desc>
+      <symbol id="ccbysa-symbol" viewBox="0 0 120 42" refX="center" refY="center">
+        <defs>
+          <path id="bg-lg" class="bg-lg" d="m2.879 0 114.1.2084c1.595 0 3.019-.243 3.019 3.262l-.14 38.53h-119.9v-38.67c0-1.728.1631-3.327 2.879-3.327z"></path>
+          <path id="bg-white2" class="bg-white2" d="m63.4 4c-6.075 0-11 4.925-11 11 0 6.075 4.925 11 11 11s11-4.925 11-11c0-6.075-4.925-11-11-11zm28.4 0c-6.075 0-11 4.925-11 11 0 6.075 4.925 11 11 11 6.075-3e-8 11-4.925 11-11 0-6.075-4.925-11-11-11zm-70.91.5996c-8.24.06223-14.89 6.76-14.89 15 0 8.284 6.716 14.95 15 14.95s15-6.666 15-14.95c0-8.284-6.716-14.9-15-14.9-.03776-.0001426-.07552-.1001-.1133-.1zm34.11 26.4v10h44v-10z"></path>
+          <path id="fg-lg" class="fg-lg" d="m2.246 0c-1.239 0-2.246 1.007-2.246 2.246v39.25c0 .2799.2278.5078.5078.5078h119c.28 0 .5078-.2279.5078-.5078v-39.25c0-1.239-1.007-2.246-2.246-2.246zm0 1.016h115.5c.68 0 1.23.5512 1.23 1.23v27.25h-82.36c-.7565 1.368-1.737 2.46-2.863 3.492-1.127 1.033-2.398 2.006-3.734 2.732-2.672 1.452-5.803 2.42-9.148 2.42-3.347 0-6.477-.9679-9.148-2.42-1.336-.726-2.606-1.698-3.732-2.73-1.126-1.033-2.058-2.126-2.814-3.494h-4.173v-27.25c-2e-5-.6793.5531-1.23 1.232-1.23zm61.11 2.334c-6.395 0-11.6 5.205-11.6 11.6 0 6.395 5.205 11.6 11.6 11.6s11.6-5.207 11.6-11.6c0-6.395-5.207-11.6-11.6-11.6zm28.44 0c-6.395 0-11.6 5.205-11.6 11.6 0 6.395 5.207 11.6 11.6 11.6 6.395-2e-8 11.6-5.207 11.6-11.6 0-6.395-5.205-11.6-11.6-11.6zm-70.9.6113c-8.6-1e-9-15.6 7-15.6 15.6 0 8.6 7 15.6 15.6 15.6 8.6 0 15.6-7 15.6-15.6 0-8.6-7-15.6-15.6-15.6zm42.46 1.389c5.314 0 9.602 4.286 9.602 9.6 0 5.314-4.288 9.602-9.602 9.602s-9.6-4.288-9.6-9.602c0-5.314 4.286-9.6 9.6-9.6zm28.44 0c5.314 1.5e-8 9.6 4.286 9.6 9.6 0 5.314-4.286 9.602-9.6 9.602-5.314 0-9.602-4.288-9.602-9.602 0-5.314 4.288-9.6 9.602-9.6zm-70.9 1.311c7.14 0 12.9 5.76 12.9 12.9 0 7.14-5.76 12.9-12.9 12.9-7.14 0-12.9-5.76-12.9-12.9-2e-9-7.14 5.76-12.9 12.9-12.9zm42.42.8789c-.8841.0002154-1.6.7174-1.6 1.602.0002156.8834.7163 1.599 1.6 1.6.8834-.0002156 1.599-.7163 1.6-1.6.0008634-.8841-.7155-1.601-1.6-1.602zm28.35 1.262c-2.586 0-4.65 1.567-5.113 4.498l-.9199-.005859 2.309 2.311 2.311-2.311-.8535.005859c.2334-1.596 1.337-2.061 2.615-2.061 1.744 0 2.674 1.305 2.674 3.771 0 2.351-1.075 3.891-2.73 3.891-1.453 0-2.471-.5523-2.559-2.119h-2.934c.4075 3.018 2.643 4.557 5.143 4.557 3.633 0 6.043-2.729 6.043-6.24 0-3.599-2.265-6.297-5.984-6.297zm-30.72 2.549c-.416 0-.7539.3374-.7539.7539v4.773h1.332v5.652h3.617v-5.652h1.332v-4.773c0-.4165-.3379-.7539-.7539-.7539zm-44.34 3.322c-1.345 0-2.452.445-3.32 1.332-.8703.887-1.305 2.086-1.305 3.596 0 1.536.4278 2.739 1.283 3.613.8571.8738 1.998 1.312 3.422 1.312 1.844 0 3.228-.8236 4.15-2.465l-1.982-1.031c-.3696.9187-1.017 1.377-1.941 1.377-1.426 0-2.141-.941-2.141-2.824 0-1.882.7141-2.822 2.141-2.822.7665 0 1.348.4308 1.744 1.295l2.139-1.074c-.8422-1.538-2.239-2.309-4.189-2.309zm9.014 0c-1.345 0-2.452.445-3.32 1.332-.8703.887-1.305 2.086-1.305 3.596 0 1.536.4278 2.739 1.283 3.613.8571.8738 1.998 1.312 3.422 1.312 1.844 0 3.228-.8236 4.15-2.465l-1.982-1.031c-.3696.9187-1.017 1.377-1.941 1.377-1.426 0-2.141-.941-2.141-2.824 0-1.882.7141-2.822 2.141-2.822.7665 0 1.348.4308 1.744 1.295l2.139-1.074c-.8422-1.538-2.239-2.309-4.189-2.309zm31.38 18.33h3.141c.3174 0 .6074.02828.8691.08398.2617.0561.4883.1479.6758.2754.1865.1274.3311.2964.4336.5078.1026.2114.1543.4741.1543.7852 0 .3359-.07707.6138-.2305.8379-.1523.2241-.3789.4078-.6777.5508.4121.1182.7206.3252.9238.6211.2031.2959.3047.6533.3047 1.07 0 .3359-.06451.6269-.1953.873-.1309.2456-.3086.4458-.5293.6016-.2216.1557-.4746.2715-.7578.3457-.2841.0752-.5752.1113-.875.1113h-3.236zm6 0h1.645l1.559 2.631 1.553-2.631h1.633l-2.475 4.107v2.557h-1.467v-2.596zm24.62 0c.3487 0 .6836.03909 1.004.1172.3193.0776.6036.2046.8516.3789.249.1743.4473.397.5938.668.1455.271.2188.5987.2188.9844h-1.422c-.0127-.1992-.0546-.3637-.125-.4941-.0712-.1309-.166-.2334-.2832-.3086-.1181-.0742-.2529-.1274-.4043-.1582-.1523-.0312-.3183-.04688-.498-.04688-.1172 0-.2344.01271-.3516.03711-.1181.0254-.2246.06886-.3203.1309-.0967.0625-.1768.1411-.2383.2344-.0615.0938-.0918.2104-.0918.3535 0 .1308.02442.2378.07422.3184.0498.081.1475.1562.293.2246.1455.0683.3477.1367.6055.2051.2578.0683.5947.1562 1.012.2617.124.0249.2969.06937.5176.1348.2207.0655.4386.1695.6562.3125.2178.1436.4053.335.5645.5742.1582.2398.2383.5463.2383.9199 0 .3051-.05963.5883-.1777.8496-.1182.2617-.2939.4864-.5273.6758-.2334.1905-.5224.3393-.8672.4453-.3457.1059-.7461.1582-1.199.1582-.3672 0-.7246-.04632-1.07-.1367-.3448-.0903-.6494-.2305-.9141-.4238-.2636-.1934-.4747-.4414-.6309-.7402-.1553-.2993-.2285-.6533-.2227-1.064h1.422c0 .2242.03999.415.1211.5703.08.1557.1865.2803.3203.377.1337.0962.291.1685.4707.2148.1806.0469.3662.07031.5586.07031.1298 0 .2705-.0113.4199-.0332.1484-.0215.2871-.063.418-.125.1298-.062.2402-.1489.3262-.2578.0878-.1089.1309-.2456.1309-.4141 0-.1802-.05863-.3272-.1738-.4395-.1143-.1123-.2647-.2042-.4512-.2793-.1855-.0743-.3974-.1411-.6328-.1973-.2363-.0561-.4766-.1186-.7188-.1875-.249-.062-.4903-.1381-.7266-.2285-.2354-.0898-.4483-.2065-.6348-.3496-.1865-.143-.336-.3204-.4512-.5352-.1143-.2148-.1719-.4766-.1719-.7812 0-.3428.07325-.6386.2188-.8906.1465-.252.3379-.4624.5742-.6309.2354-.1679.502-.2919.8008-.373.2979-.0806.5967-.1211.8945-.1211zm5.404 0h1.504l2.492 6.664h-1.521l-.5039-1.484h-2.492l-.5234 1.484h-1.475zm-34.55 1.141v1.555h1.484c.2617 0 .4775-.06155.6465-.1855.168-.1245.252-.3262.252-.6055 0-.1553-.02838-.2818-.08398-.3809-.0567-.0997-.1309-.1782-.2246-.2344-.0938-.0556-.2012-.09373-.3223-.1152-.1221-.0219-.2481-.0332-.3789-.0332zm35.28.502-.8672 2.443h1.727l-.8398-2.443zm-35.28 2.053v1.828h1.57c.1436 0 .2813-.01272.4121-.04102.1309-.0279.2461-.07563.3457-.1406.0996-.0654.1787-.1538.2383-.2656s.08984-.2554.08984-.4297c0-.3418-.09762-.5864-.291-.7324-.1933-.146-.4482-.2188-.7656-.2188z"></path>
+        </defs>
+      </symbol>
+    </svg>
+  </aside>
+
+  <div data-messages="false" title="Löschen durch Eingabe von z.B. ‚red‛ im Input-Bereich">
+    <p title="">&numsp; <b>Warning:&numsp;</b><i id="warnMsg">&nbsp;</i> &numsp;</p>
+    <p title="">&numsp; <b>Error:&numsp;</b><i id="errorValue" title="">0</i><b>&numsp;Msg:&numsp;</b><i id="errorMsg" title="">&nbsp;</i> &numsp;</p>
+  </div>
+
+  <main id="eclrForm" draggable="false">
+
+    <header>
+      <h1>
+        <span class="logo1">
+          <svg id="svg1" width="84" height="44" viewBox="0 0 84 44">
+            <desc>hjt-logo-lg4-text2path-opt-min (c) hjt1946</desc>
+            <defs>
+              <linearGradient id='lg0' x1='0.12' y1='0.12' x2='0.2' y2='1'>
+                <stop offset='0' stop-color='hsl(30,100%,13%)'></stop><stop offset='.30' stop-color='hsl(41,100%,38%)'></stop><stop offset='.50' stop-color='hsl(45,100%,50%)'></stop><stop offset='.54' stop-color='hsl(50,100%,50%)'></stop><stop offset='.56' stop-color='hsl(0,0%,100%)'></stop><stop offset='.58' stop-color='hsl(50,100%,50%)'></stop><stop offset='.63' stop-color='hsl(45,100%,50%)'></stop><stop offset='.70' stop-color='hsl(41,100%,38%)'></stop><stop offset='1' stop-color='hsl(30,100%,13%)'></stop>
+              </linearGradient>
+              <linearGradient id="lg" gradientUnits="userSpaceOnUse" x1="46%" y1="12%" x2="55%" y2="100%">
+                <stop stop-color="#804000" offset="0"></stop><stop stop-color="#CC8800" offset="0.2"></stop><stop stop-color="#EE9F00" offset="0.3"></stop><stop stop-color="#FFBB33" offset="0.4"></stop><stop stop-color="#FFEECC" offset="0.48"></stop><stop stop-color="#FFEECC" offset="0.5"></stop><stop stop-color="#FFD700" offset="0.52"></stop><stop stop-color="#FFBB33" offset="0.6"></stop><stop stop-color="#EE9F00" offset="0.7"></stop><stop stop-color="#CC8800" offset="0.8"></stop><stop stop-color="#804000" offset="1"></stop>
+              </linearGradient>
+              <filter id='f'><feGaussianBlur stdDeviation='1' in='SourceAlpha'></feGaussianBlur><feOffset dx='1.35' dy='1.3'></feOffset><feMerge><feMergeNode></feMergeNode><feMergeNode in='SourceGraphic'></feMergeNode></feMerge></filter>
+              <style>@media screen{#svg1 path{fill:url(#lg);filter:url(#f)}}</style>
+            </defs>
+            <path d=' M13.8,3.6L8.5,22q2.8,-4.1 4,-5.5 1.9,-2.1 3.2,-2.8 1.4,-0.7 2.6,-0.7 1.1,0 1.8,0.8 0.8,0.8 0.8,2.1 0,1.1-0.5,2.8l-2.6,8.7q-0.4,1.2 -0.4,1.5 0,0.2 0.2,0.4 0.1,0.1 0.3,0.1 0.3,0 0.5,-0.2 0.7,-0.5 1.4,-1.6 0.2,-0.3 0.6,-0.9l0.8,0.5q-1.8,2.9 -3.3,4-1.6,1.1-3,1.1-1.3,0-2,-0.7-0.7,-0.7-0.7,-1.6 0,-0.9 0.5,-2.6l2.5,-8.7q0.3,-0.9 0.3,-1.3 0,-0.2-0.2,-0.4-0.2,-0.2-0.4,-0.2-0.7,0-2,1.2-2.7,2.5-5.3,7.9L5.6,32H0.5L7.2,8.8q0.4,-1.5 0.4,-2.1 0,-0.5-0.4,-0.8Q6.7,5.5 5.6,5.6L5.7,4.8 12.6,3.6Z M32.8,3.6q1.3,0 2.2,0.9 0.9,0.9 0.9,2.2 0,1.3-0.9,2.2-0.9,0.9-2.1,0.9-1.3,0-2.2,-0.9-0.9,-0.9-0.9,-2.2 0,-1.3 0.9,-2.2 0.9,-0.9 2.2,-0.9z M34.6,13L30.2,29.1q-1.4,4.9-3,7.8-1.2,2-3.1,3.1-2,1.1-4,1.1-1.7,0 -2.5,-0.7-0.8,-0.7-0.8,-1.5 0,-0.9 0.7,-1.5 0.7,-0.7 1.7,-0.7 0.8,0 1.3,0.4 0.5,0.5 0.5,1.1 0,0.6-0.6,1.2-0.2,0.3-0.2,0.4 0,0.1 0.14,0.3 0.1,0.1 0.4,0.1 0.9,0 1.6,-1 0.5,-0.7 1.6,-5.1l4.2,-15.8q 0.5,-1.7 0.5,-2.1 0,-0.4-0.5,-0.8-0.5,-0.4-1.2,-0.4-0.2,0-0.5,0l0.2,-0.8 6.9,-1.1z M47.1,8l-1.6,5.6h2.7l-0.7,2.4h-2.7l-3.4,11.9q-0.3,1.1-0.3,1.7 0,0.3 0.2,0.5 0.2,0.2 0.4,0.2 0.4,0 0.7,-0.3 0.9,-0.7 2.2,-2.5l0.7,0.5q-1.4,2.5-3.1,3.6-1.7,1.2-3.3,1.2-1.4,0-2.2,-0.7-0.8,-0.7-0.8,-1.8 0,-1.2 0.5,-3.1l3.2,-11.1h-2.8l0.4,-1.5q2.6,-1 4.4,-2.3 1.8,-1.3 4.4,-4.2z M53.8,21.2l-2.6,8.9q-0.2,0.7-0.2,0.9 0,0.2 0.1,0.4 0.2,0.2 0.3,0.3 0.2,0.1 1,0.1L52.4,32h-5.3l0.1,-0.3q0.8,-0 1.1,-0.1 0.3,-0.1 0.5,-0.4 0.2,-0.3 0.5,-1.1l1.5,-5.3q0.4,-1.2 0.4,-1.3 0.1,-0.2 0.1,-0.4 0,-0.4-0.2,-0.6Q50.7,22.4 50.3,22.4q-0.2,0-0.8,0.1l-0.1,-0.3 4,-1z M55.4,31.2V30.9q1.2,-0.3 2.2,-1.3 1,-1 1.9,-2.8-0.7,0.3-1.3,0.3-0.9,0-1.5,-0.7-0.6,-0.7-0.6,-1.9 0,-1.6 0.9,-2.9 1.1,-1.6 2.9,-1.6 1.2,0 2,0.8 0.8,0.8 0.8,2.4 0,1.7-0.7,3.2-0.7,1.5-1.9,2.6-1.1,1.1-2.4,1.6-1,0.4-2.2,0.5z m4.3,-5q0.5,-1.4 0.9,-2.8 0.2,-1 0.2,-1.6 0,-0.6-0.3,-0.9 -0.3,-0.3-0.7,-0.3-0.3,0-0.5,0.2-0.4,0.4-0.8,1.4 -0.5,1.7 -0.5,2.8 0,0.6 0.3,1 0.2,0.3 0.6,0.3 0.3,0 0.7,-0.1z M67.4,26.8h-3.5l0.4,-1.3 6.3,-7.3h1l-2.1,7.3h1.2l-0.4,1.3h-1.2l-0.7,2.5h-1.8z m0.4,-1.3 1.3,-4.6-4,4.6z M80.8,15.1v0.3q-1.2,0.3-2.1,1.2-1.1,1.1-2,2.9Q77.5,19.3 78,19.3q0.9,0 1.5,0.7 0.6,0.7 0.6,1.9 0,1.6-0.9,2.9 -1.1,1.6-2.9,1.6-1.2,0-2,-0.8 -0.8,-0.8-0.8,-2.4 0,-1.7 0.7,-3.2 0.7,-1.5 1.9,-2.6 1.1,-1.1 2.4,-1.6 1,-0.4 2.2,-0.5z m-4.3,5q-0.5,1.4-0.9,2.8-0.2,1-0.2,1.6 0,0.6 0.3,0.9 0.3,0.3 0.6,0.3 0.3,0 0.6,-0.2 0.4,-0.4 0.7,-1.4 0.5,-1.7 0.5,-2.8 0,-0.6-0.3,-1-0.3,-0.3-0.6,-0.3-0.3,0-0.7,0.1z'></path>
+          </svg>
+        </span>
+        <span class="h1" title="Version 0.19&#10;2026-06-30T21:00&#10;">ExoticColor Library Test</span>
+        <span class="logo2">
+          <svg id="svg2" class="css-filter-2">
+            <defs>
+              <linearGradient id='lg-fg' x1="45%" y1="27%" x2="50%" y2="55%">
+                <stop offset='0' stop-color='hsl(30,100%,30%)'></stop>
+                <stop offset='.10' stop-color='hsl(41,100%,40%)'></stop>
+                <stop offset='.20' stop-color='hsl(45,100%,50%)'></stop>
+                <stop offset='.45' stop-color='hsl(50,100%,50%)'></stop>
+                <stop offset='.50' stop-color='hsl(50,100%,70%)'></stop>
+                <stop offset='.60' stop-color='hsl(50,100%,50%)'></stop>
+                <stop offset='.70' stop-color='hsl(45,100%,50%)'></stop>
+                <stop offset='.80' stop-color='hsl(41,100%,40%)'></stop>
+                <stop offset='.90' stop-color='hsl(30,100%,30%)'></stop>
+                <stop offset='1' stop-color='hsl(30,100%,10%)'></stop>
+              </linearGradient>
+              <linearGradient id='lg-bg' x1='0.1' y1='0.12' x2='0.25' y2='0.9'>
+                <stop offset='0' stop-color='goldenrod'></stop>
+                <stop offset='.20' stop-color='gold'></stop>
+                <stop offset='.50' stop-color='palegoldenrod'></stop>
+                <stop offset='.80' stop-color='gold'></stop>
+                <stop offset='1' stop-color='goldenrod'></stop>
+              </linearGradient>
+            </defs>
+            <use class="use-logo2bg" xlink:href="#bg-lg"></use>
+            <use class="use-logo2w" xlink:href="#bg-white2"></use>
+            <use class="use-logo2fg" xlink:href="#fg-lg"></use>
+          </svg>
+        </span>
+      </h1>
+    </header>
+
+    <section class="slider-box" data-t="rgb">
+      <span id="rgbValue"></span>
+      <label class="sliderL" for="rgb-r">
+        <span>𝚁</span>
+        <input id="rgb-r" value="255" type="range" max="255" min="0" step=".01" data-eclr="eclr" />
+      </label>
+      <label class="sliderL" for="rgb-g">
+        <span>𝙶</span>
+        <input id="rgb-g" value="255" type="range" max="255" min="0" step=".01" data-eclr="eclr" />
+      </label>
+      <label class="sliderL" for="rgb-b">
+        <span>𝙱</span>
+        <input id="rgb-b" value="255" type="range" max="255" min="0" step=".01" data-eclr="eclr" />
+      </label>
+    </section>
+
+    <section class="slider-box" data-t="hsl">
+      <span id="hslValue"></span>
+      <label class="sliderL" for="hsl-l">
+        <span>𝙻</span>
+        <input id="hsl-l" value="100" type="range" max="100" min="0" step=".01" data-eclr="eclr" />
+      </label>
+      <label class="sliderL" for="hsl-s">
+        <span>𝚂</span>
+        <input id="hsl-s" value="0" type="range" max="100" min="0" step=".01" data-eclr="eclr" />
+      </label>
+      <label class="sliderL" for="hsl-h">
+        <span>𝙷</span>
+        <input id="hsl-h" value="0" type="range" max="360" min="0" step=".01" data-eclr="eclr" />
+      </label>
+    </section>
+
+    <section class="slider-box" data-t="opacity">
+      <span id="alphaValue">1</span>
+      <label class="sliderL" for="alpha-a">
+        <span>𝙰</span>
+        <span><b><input id="alpha-a" value="1" type="range" max="1" min="0" step=".01" data-eclr="eclr" /></b></span>
+      </label>
+    </section>
+
+    <section id="parser" class="slider-box" data-t="input">
+
+      <div>
+        <label class="inp" for="cssInput">css</label>
+        <input id="cssInput" type="text"
+        spellcheck="false" data-eclr="eclr"
+        title="Input:&#10;rgb( r, g, b) or rgb( r%, g%, b%)&#10;rgba( r, g, b, a) or rgba( r%, g%, b%, a)&#10;#rgb oder #rrggbb&#10;#rgba oder #rrggbbaa&#10;hsl( h, s%, l%) or hsla( h, s%, l%, a)&#10;hsv( h, s%, v%) or hsva( h, s%, v%, a)&#10;color names …&#10;CSS Color Module Level 4:&#10;hwb(h w% b%) | hwb(h w% b% / a[%])" placeholder="CSS Hexwert, Farbname, Farbfunktion (in Arbeit) ungeparst" />
+        <label class="inp" for="rgbPOutput">rgb%</label>
+        <input 
+        id="rgbPOutput" type="text" spellcheck="false"
+        data-eclr="eclr"
+        title="Output: Zwischenergebnis in&#10;rgb(r% g% b% / a%)" placeholder="rgb(r% g% b% / a%) Zwischenergebnis" readonly />
+      </div>
+
+      <div>
+        <label class="inp" for="hslInput">hsl</label>
+        <input id="hslInput" type="text" spellcheck="false" required
+        data-eclr="eclr"
+        title="Input:&#10;hsl( h, s%, l%) or hsla( h, s%, l%, a)"
+        pattern="\s*?(?:hsla?)(?:\((?:\s*?([\-+]?\d+(?:\.\d+)?|[\-+]?\.\d+)\s*?(?:(,| )\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%))\s*?(?:(,| )\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%))\s*?)(?:(,|\/)\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%?))?\s*?\)\s*?)" />
+        <label class="inp" for="hwbInput">hwb</label>
+        <input id="hwbInput" type="text" spellcheck="false" required
+        data-eclr="eclr"
+        title="Input:&#10;hwb(h w% b%) or hwb(h w% b% /a%)&#10;later hwb(h[deg] w b [/ a])"
+        pattern="\s*?(?:hwb)(?:\((?:\s*?([\-+]?\d+(?:\.\d+)?|[\-+]?\.\d+)\s*?(?:( )\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%))\s*?(?:( )\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%))\s*?)(?:(\/)\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%))?\s*?\)\s*?)" />
+        <label class="inp" for="hsvInput">hsv</label>
+        <input id="hsvInput" type="text" spellcheck="false" required
+        data-eclr="eclr"
+        title="Input:&#10;hsv(h, s%, v%) or hsva(h, s%, v%, a)"
+        pattern="\s*?(?:hsva?)(?:\((?:\s*?([\-+]?\d+(?:\.\d+)?|[\-+]?\.\d+)\s*?(?:(,| )\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%))\s*?(?:(,| )\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%))\s*?)(?:(,|\/)\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%?))?\s*?\)\s*?)" />
+      </div>
+
+      <div>
+        <label class="inp" for="rgbInput">rgb</label>
+        <input id="rgbInput" type="text" spellcheck="false" required
+        data-eclr="eclr"
+        title="Input:&#10;rgb( r, g, b) or rgb( r%, g%, b%)&#10;rgba( r, g, b, a) or rgba( r%, g%, b%, a)&#10;or Color Module 4 syntax&#10;rgb( r g b) or rgb( r% g% b%)&#10;rgb( r g b / a) or rgb( r% g% b% / a)&#10;with a range 0..1 or 0%..100%"
+        pattern="\s*?(?:rgba?)(?:\((?:(?:\s*?([\-+]?\d{1,3}(?:\.[\d]+)?|[\-+]?\.[\d]+)(%?)\s*?)(?:(,| )\s*?([\-+]?\d{1,3}(?:\.[\d]+)?|[\-+]?\.[\d]+)(%?)\s*?)(?:(,| )\s*?([\-+]?\d{1,3}(?:\.[\d]+)?|[\-+]?\.[\d]+)(%?)\s*?))(?:(,|\/)\s*?([\-+]?\d{1,3}(?:\.\d+)?|[\-+]?\.\d+)(%?)\s*?)?\)\s*?)" />
+        <label class="inp" for="hexInput">hex</label>
+        <input id="hexInput" type="text" spellcheck="false" required
+        data-eclr="eclr"
+        title="Input:&#10;#rgb or #rrggbb&#10;#rgba or #rrggbbaa"
+        pattern="\s*?#(?:(?:[0-9A-Fa-f]{3}){1,2}|(?:[0-9A-Fa-f]{4}){1,2})\s*?"
+        data-pattern-wrong-red="\s*?#([0-9A-Fa-f]){3,4}(\1{3,4})?\s*?"
+        data-pattern-ok-bud-ie-edge-red-2="#[0-9A-Fa-f]{3}|#[0-9A-Fa-f]{4}|#[0-9A-Fa-f]{6}|#[0-9A-Fa-f]{8}"
+        data-pattern-ok-bud-ie-edge-red="\s*?#(?:(?:[0-9A-Fa-f]{3}){1,2}|(?:[0-9A-Fa-f]{4}){1,2})\s*?"
+        data-pattern-wrong-all="#(?=.{3,8})(?=.*[0-9])(?=.*[A-F])(?=.*[a-f]).*"
+        />
+        <label class="inp" for="nameInput">name</label>
+        <input id="nameInput" type="text" spellcheck="false"
+        data-eclr="eclr"
+        title="Input:&#10;CSS4 color names" list="name-list"
+        pattern="\s*?[A-Za-z]{3,22}\s*?|transparent\s*?|initial\s*?" />
+        <datalist id="name-list">
+          <option value="transparent" label="transparent (default)"></option>
+          <option value="aliceblue"></option>
+          <option value="antiquewhite"></option>
+          <option value="aqua"></option>
+          <option value="aquamarine"></option>
+          <option value="azure"></option>
+          <option value="beige"></option>
+          <option value="bisque"></option>
+          <option value="black"></option>
+          <option value="blanchedalmond"></option>
+          <option value="blue"></option>
+          <option value="blueviolet"></option>
+          <option value="brown"></option>
+          <option value="burlywood"></option>
+          <option value="burntsienna"></option>
+          <option value="cadetblue"></option>
+          <option value="chartreuse"></option>
+          <option value="chocolate"></option>
+          <option value="coral"></option>
+          <option value="cornflowerblue"></option>
+          <option value="cornsilk"></option>
+          <option value="crimson"></option>
+          <option value="cyan"></option>
+          <option value="darkblue"></option>
+          <option value="darkcyan"></option>
+          <option value="darkgoldenrod"></option>
+          <option value="darkgray"></option>
+          <option value="darkgreen"></option>
+          <option value="darkgrey"></option>
+          <option value="darkkhaki"></option>
+          <option value="darkmagenta"></option>
+          <option value="darkolivegreen"></option>
+          <option value="darkorange"></option>
+          <option value="darkorchid"></option>
+          <option value="darkred"></option>
+          <option value="darksalmon"></option>
+          <option value="darkseagreen"></option>
+          <option value="darkslateblue"></option>
+          <option value="darkslategray"></option>
+          <option value="darkslategrey"></option>
+          <option value="darkturquoise"></option>
+          <option value="darkviolet"></option>
+          <option value="deeppink"></option>
+          <option value="deepskyblue"></option>
+          <option value="dimgray"></option>
+          <option value="dimgrey"></option>
+          <option value="dodgerblue"></option>
+          <option value="firebrick"></option>
+          <option value="floralwhite"></option>
+          <option value="forestgreen"></option>
+          <option value="fuchsia"></option>
+          <option value="gainsboro"></option>
+          <option value="ghostwhite"></option>
+          <option value="gold"></option>
+          <option value="goldenrod"></option>
+          <option value="gray"></option>
+          <option value="green"></option>
+          <option value="greenyellow"></option>
+          <option value="grey"></option>
+          <option value="honeydew"></option>
+          <option value="hotpink"></option>
+          <option value="indianred"></option>
+          <option value="indigo"></option>
+          <option value="ivory"></option>
+          <option value="khaki"></option>
+          <option value="lavender"></option>
+          <option value="lavenderblush"></option>
+          <option value="lawngreen"></option>
+          <option value="lemonchiffon"></option>
+          <option value="lightblue"></option>
+          <option value="lightcoral"></option>
+          <option value="lightcyan"></option>
+          <option value="lightgoldenrodyellow"></option>
+          <option value="lightgray"></option>
+          <option value="lightgreen"></option>
+          <option value="lightgrey"></option>
+          <option value="lightpink"></option>
+          <option value="lightsalmon"></option>
+          <option value="lightseagreen"></option>
+          <option value="lightskyblue"></option>
+          <option value="lightslategray"></option>
+          <option value="lightslategrey"></option>
+          <option value="lightsteelblue"></option>
+          <option value="lightyellow"></option>
+          <option value="lime"></option>
+          <option value="limegreen"></option>
+          <option value="linen"></option>
+          <option value="magenta"></option>
+          <option value="maroon"></option>
+          <option value="mediumaquamarine"></option>
+          <option value="mediumblue"></option>
+          <option value="mediumorchid"></option>
+          <option value="mediumpurple"></option>
+          <option value="mediumseagreen"></option>
+          <option value="mediumslateblue"></option>
+          <option value="mediumspringgreen"></option>
+          <option value="mediumturquoise"></option>
+          <option value="mediumvioletred"></option>
+          <option value="midnightblue"></option>
+          <option value="mintcream"></option>
+          <option value="mistyrose"></option>
+          <option value="moccasin"></option>
+          <option value="navajowhite"></option>
+          <option value="navy"></option>
+          <option value="oldlace"></option>
+          <option value="olive"></option>
+          <option value="olivedrab"></option>
+          <option value="orange"></option>
+          <option value="orangered"></option>
+          <option value="orchid"></option>
+          <option value="palegoldenrod"></option>
+          <option value="palegreen"></option>
+          <option value="paleturquoise"></option>
+          <option value="palevioletred"></option>
+          <option value="papayawhip"></option>
+          <option value="peachpuff"></option>
+          <option value="peru"></option>
+          <option value="pink"></option>
+          <option value="plum"></option>
+          <option value="powderblue"></option>
+          <option value="purple"></option>
+          <option value="rebeccapurple"></option>
+          <option value="red"></option>
+          <option value="rosybrown"></option>
+          <option value="royalblue"></option>
+          <option value="saddlebrown"></option>
+          <option value="salmon"></option>
+          <option value="sandybrown"></option>
+          <option value="seagreen"></option>
+          <option value="seashell"></option>
+          <option value="sienna"></option>
+          <option value="silver"></option>
+          <option value="skyblue"></option>
+          <option value="slateblue"></option>
+          <option value="slategray"></option>
+          <option value="slategrey"></option>
+          <option value="snow"></option>
+          <option value="springgreen"></option>
+          <option value="steelblue"></option>
+          <option value="tan"></option>
+          <option value="teal"></option>
+          <option value="thistle"></option>
+          <option value="tomato"></option>
+          <option value="turquoise"></option>
+          <option value="violet"></option>
+          <option value="wheat"></option>
+          <option value="white"></option>
+          <option value="whitesmoke"></option>
+          <option value="yellow"></option>
+          <option value="yellowgreen"></option>
+        </datalist>
+
+        <label class="inp" for="nameSelect">select</label>
+        <select id="nameSelect" name="nameSelect" title="Select:&#10;CSS3 + CSS4 color names">
+          <optgroup label="Noname">
+            <option disabled>---</option>
+          </optgroup>
+          <optgroup label="Default">
+            <option selected>transparent</option>
+          </optgroup>
+          <optgroup label="Color names">
+            <option>aliceblue</option>
+            <option>antiquewhite</option>
+            <option>aqua</option>
+            <option>aquamarine</option>
+            <option>azure</option>
+            <option>beige</option>
+            <option>bisque</option>
+            <option>black</option>
+            <option>blanchedalmond</option>
+            <option>blue</option>
+            <option>blueviolet</option>
+            <option>brown</option>
+            <option>burlywood</option>
+            <option>burntsienna</option>
+            <option>cadetblue</option>
+            <option>chartreuse</option>
+            <option>chocolate</option>
+            <option>coral</option>
+            <option>cornflowerblue</option>
+            <option>cornsilk</option>
+            <option>crimson</option>
+            <option>cyan</option>
+            <option>darkblue</option>
+            <option>darkcyan</option>
+            <option>darkgoldenrod</option>
+            <option>darkgray</option>
+            <option>darkgreen</option>
+            <option>darkgrey</option>
+            <option>darkkhaki</option>
+            <option>darkmagenta</option>
+            <option>darkolivegreen</option>
+            <option>darkorange</option>
+            <option>darkorchid</option>
+            <option>darkred</option>
+            <option>darksalmon</option>
+            <option>darkseagreen</option>
+            <option>darkslateblue</option>
+            <option>darkslategray</option>
+            <option>darkslategrey</option>
+            <option>darkturquoise</option>
+            <option>darkviolet</option>
+            <option>deeppink</option>
+            <option>deepskyblue</option>
+            <option>dimgray</option>
+            <option>dimgrey</option>
+            <option>dodgerblue</option>
+            <option>firebrick</option>
+            <option>floralwhite</option>
+            <option>forestgreen</option>
+            <option>fuchsia</option>
+            <option>gainsboro</option>
+            <option>ghostwhite</option>
+            <option>gold</option>
+            <option>goldenrod</option>
+            <option>gray</option>
+            <option>green</option>
+            <option>greenyellow</option>
+            <option>grey</option>
+            <option>honeydew</option>
+            <option>hotpink</option>
+            <option>indianred</option>
+            <option>indigo</option>
+            <option>ivory</option>
+            <option>khaki</option>
+            <option>lavender</option>
+            <option>lavenderblush</option>
+            <option>lawngreen</option>
+            <option>lemonchiffon</option>
+            <option>lightblue</option>
+            <option>lightcoral</option>
+            <option>lightcyan</option>
+            <option>lightgoldenrodyellow</option>
+            <option>lightgray</option>
+            <option>lightgreen</option>
+            <option>lightgrey</option>
+            <option>lightpink</option>
+            <option>lightsalmon</option>
+            <option>lightseagreen</option>
+            <option>lightskyblue</option>
+            <option>lightslategray</option>
+            <option>lightslategrey</option>
+            <option>lightsteelblue</option>
+            <option>lightyellow</option>
+            <option>lime</option>
+            <option>limegreen</option>
+            <option>linen</option>
+            <option>magenta</option>
+            <option>maroon</option>
+            <option>mediumaquamarine</option>
+            <option>mediumblue</option>
+            <option>mediumorchid</option>
+            <option>mediumpurple</option>
+            <option>mediumseagreen</option>
+            <option>mediumslateblue</option>
+            <option>mediumspringgreen</option>
+            <option>mediumturquoise</option>
+            <option>mediumvioletred</option>
+            <option>midnightblue</option>
+            <option>mintcream</option>
+            <option>mistyrose</option>
+            <option>moccasin</option>
+            <option>navajowhite</option>
+            <option>navy</option>
+            <option>oldlace</option>
+            <option>olive</option>
+            <option>olivedrab</option>
+            <option>orange</option>
+            <option>orangered</option>
+            <option>orchid</option>
+            <option>palegoldenrod</option>
+            <option>palegreen</option>
+            <option>paleturquoise</option>
+            <option>palevioletred</option>
+            <option>papayawhip</option>
+            <option>peachpuff</option>
+            <option>peru</option>
+            <option>pink</option>
+            <option>plum</option>
+            <option>powderblue</option>
+            <option>purple</option>
+            <option>rebeccapurple</option>
+            <option>red</option>
+            <option>rosybrown</option>
+            <option>royalblue</option>
+            <option>saddlebrown</option>
+            <option>salmon</option>
+            <option>sandybrown</option>
+            <option>seagreen</option>
+            <option>seashell</option>
+            <option>sienna</option>
+            <option>silver</option>
+            <option>skyblue</option>
+            <option>slateblue</option>
+            <option>slategray</option>
+            <option>slategrey</option>
+            <option>snow</option>
+            <option>springgreen</option>
+            <option>steelblue</option>
+            <option>tan</option>
+            <option>teal</option>
+            <option>thistle</option>
+            <option>tomato</option>
+            <option>turquoise</option>
+            <option>violet</option>
+            <option>wheat</option>
+            <option>white</option>
+            <option>whitesmoke</option>
+            <option>yellow</option>
+            <option>yellowgreen</option>
+          </optgroup>
+        </select>
+      </div>
+
+    </section>
+
+    <section data-t="setting-section">
+      <details>
+        <summary tabindex="0"><strong>Einstellungen</strong></summary>
+
+        <div class="settings">
+
+          <input id="outputPrecision" name="outputPrecision" type="number" value="2" min="0" max="16" data-eclr="eclr" title="H, S, L, V displayed decimal places:&#10;#EC.outputPrecision&#10;Range 0-16&#10;Default 2" />
+          <label for="outputPrecision">HSL, HSV, HWB Kommastellen (Digits)</label>
+
+          <input id="rgbPrecision" name="rgbPrecision" type="number" value="2" min="0" max="16" data-eclr="eclr" title="RGB displayed decimal places:&#10;#EC.rgbPrecision&#10;Range 0-16&#10;Default 2" />
+          <label for="rgbPrecision">RGB Kommastellen (Digits)</label>
+
+          <input id="alphaPrecision" name="alphaPrecision" type="number" value="2" min="0" max="16" data-eclr="eclr" title="Alpha displayed decimal places:&#10;#EC.alphaPrecision&#10;Range 0-16&#10;Default 2" />
+          <label for="alphaPrecision">Alpha-Wert (Opacity) Kommastellen (Digits)</label>
+
+          <input id="handleError" name="handleError" type="number" value="1" min="0" max="1" data-eclr="eclr" title="Bool:&#10;#EC.handleError&#10;0: no message&#10;1: warn and error message" />
+          <label for="handleError">Fehleranzeige</label>
+
+          <input id="alphaOne" name="alphaOne" type="number" value="0" min="0" max="1" data-eclr="eclr" title="Output format if alpha=1 &#10;#EC.alphaOne&#10;0: like CSS3 rgb() and hsl()&#10;1: like CSS3 rgba() and hsla()" />
+          <label for="alphaOne">Alpha-Wert Anzeige bei A=1</label>
+
+          <input id="rgbOutput" name="rgbOutput" type="number" value="1" min="0" max="1" data-eclr="eclr" title="RGB output format:&#10;#EC.rgbOutput&#10;0: CSS3 like integer&#10;1: CSS4 like number&#10;" />
+          <label for="rgbOutput">RGB Ausgabe-Format CSS3 Ganzzahl (Integer) | Css4 Kommazahl (Number)</label>
+
+          <input id="hexAlpha" name="hexAlpha" type="number" value="0" min="0" max="1" data-eclr="eclr" title="Hex alpha format:&#10;#EC.hexAlpha&#10;0: #rgba | rrggbbaa (Color Module 4)&#10; | 1: #argb | #aarrggbb (Mobile devices, bud non standard)" disabled />
+          <label for="hexAlpha">Hexadezimales Ausgabeformat Standard (RRGGBBAA) | Mobil (AARRGGBB)</label>
+
+        </div>
+
+      </details>
+    </section>
+
+    <section data-t="info">
+      <details><summary tabindex="0" ><strong>Anleitung, Lizenz und Notizen</strong></summary>
+        <div class="text">
+          <h3>Anleitung, Lizenz und Notizen</h3>
+          <details><summary><strong>Anleitung und Lizenz</strong></summary>
+            <p>Die gesamte Farbfläche ist mittels TAB, Klick und Touch aktivierbar und zeigt dann selektierbar verschiedene CSS-Farbwerte der gewählten Farbe. Mittels TAB aktivierte Flächen müssen noch angeklickt werden, das Betätigen der Leertaste scrollt nach unten.<br>
+            Die Schieberegler können mit den Kursor-Tasten ← ↑ → ↓ mit eingestelltem Step-Wert fein betätigt werden.</p>
+            <p>Funktioniert ab Edge 80, Firefox 49 und Chrome 50.</p>
+            <p>MS Internet Explorer und Edge Legacy (keine Chromium-Basis) werden ab September 2021 nicht mehr unterstützt.</p>
+            <p>Ab Version 0.18 wird schrittweise auf System-Theme, Darkmode-Umschaltung und Mobilität umgestellt.</p>
+            <hr>
+            <h3>Lizenz</h3>
+            <p data-t="Lizenz">Dieses HTML-Dokument unterliegt der <br><a href="https://creativecommons.org/licenses/by-sa/4.0/deed.de" rel="license noopener nofollow">Creative Commons — Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International — CC BY-SA 4.0 <br>
+              <svg class="css-filter-2g">
+                <use class="use-logo3bg" xlink:href="#bg-lg" fill="gray"></use>
+                <use class="use-logo3w" xlink:href="#bg-white2"></use>
+                <use class="use-logo3fg" xlink:href="#fg-lg" fill="black"></use>
+              </svg>
+            </a>
+            <span>Autor: Hans-Jürgen Trolldenier (hjt1946).</span></p>
+          </details>
+
+        </div>
+      </details>
+    </section>
+
+  </main>
+
+</body>
+</html>
